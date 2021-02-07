@@ -1,5 +1,9 @@
 const { Router } = require('express')
 
+const UserController = require('../controllers/UserController')
+const SessionController = require('../controllers/Login')
+const ProductController = require('../controllers/ProductController')
+
 const routes = Router()
 
 routes.get('/', (req,res) => {
@@ -7,17 +11,16 @@ routes.get('/', (req,res) => {
 })
 
 
-routes.post('/users')
-routes.get('/users')
+routes.post('/users', UserController.createUser)
+routes.get('/users', UserController.getUsers)
+routes.get('/users/:user_id', UserController.getUserByid)
 
-routes.get('/users/:user_id')
+routes.post('/sessions', SessionController.createSession)
 
-routes.post('/login')
-
-routes.post('/products/:user_id')
-routes.get('/products/user_id')
-routes.patch('/products/:user_id/:products_id')
-routes.delete('/products/:user_id/:products_id')
+routes.post('/products/:user_id', ProductController)
+routes.get('/products/user_id', ProductController)
+routes.patch('/products/:user_id/:products_id', ProductController)
+routes.delete('/products/:user_id/:products_id', ProductController)
 
 routes.get('/products')
 routes.get('/products/:products_id')
